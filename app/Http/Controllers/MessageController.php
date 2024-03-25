@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -16,5 +17,15 @@ class MessageController extends Controller
         return view('message/index', [
             'messages' => $messages
         ]);
+    }
+
+    // storeアクション
+    public function store(Request $request): RedirectResponse
+    {
+        $message = new Message();
+        $message->body = $request->body;
+        $message->save();
+
+        return redirect('/messages');
     }
 }
