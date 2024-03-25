@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +14,14 @@ class BooksTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Book::factory(3)->create();
+        $categories = [
+            Category::factory()->create(['title' => 'programming']),
+            Category::factory()->create(['title' => 'design']),
+            Category::factory()->create(['title' => 'management']),
+        ];
+
+        foreach ($categories as $category) {
+            Book::factory(2)->create(['category_id' => $category->id]);
+        }
     }
 }
