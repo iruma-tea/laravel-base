@@ -2,19 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Author;
-use App\Models\AuthorDetail;
+use App\Models\Book;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AuthorsTableSeeder extends Seeder
+class BooksTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Author::factory(5)->create();
-        AuthorDetail::factory(5)->create();
+        Book::factory(3)->create();
     }
 }
