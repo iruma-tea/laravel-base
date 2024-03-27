@@ -7,7 +7,7 @@
 <body>
     <main>
         <h1>書籍登録</h1>
-        <form action="/admin/books" method="post">
+        <form action="{{route('book.show')}}" method="post">
             @csrf
             <div>
                 <label for="category_id">カテゴリ</label>
