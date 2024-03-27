@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class BookController extends Controller
 {
@@ -27,5 +29,14 @@ class BookController extends Controller
 
         // 取得した書籍をレスポンスとして返す
         return $book;
+    }
+
+    public function create(): View
+    {
+        $categories = Category::all();
+
+        return view('admin.book.create', [
+            'categories' => $categories,
+        ]);
     }
 }
