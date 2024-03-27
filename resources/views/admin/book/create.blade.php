@@ -7,7 +7,7 @@
 <body>
     <main>
         <h1>書籍登録</h1>
-        <form action="/books" method="post">
+        <form action="/admin/books" method="post">
             @csrf
             <div>
                 <label for="category_id">カテゴリ</label>

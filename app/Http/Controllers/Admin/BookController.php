@@ -31,6 +31,7 @@ class BookController extends Controller
         return $book;
     }
 
+    // createアクション
     public function create(): View
     {
         $categories = Category::all();
@@ -38,5 +39,23 @@ class BookController extends Controller
         return view('admin.book.create', [
             'categories' => $categories,
         ]);
+    }
+
+    // storeアクション
+    public function store(Request $request): Book
+    {
+        // 書籍データ登録用のオブジェクトを生成する
+        $book = new Book();
+
+        // リクエストオブジェクトからパラメータを取得
+        $book->category_id = $request->category_id;
+        $book->title = $request->title;
+        $book->price = $request->price;
+
+        // 保存
+        $book->save();
+
+        // 保存した書籍情報をレスポンスとして返す。
+        return $book;
     }
 }
