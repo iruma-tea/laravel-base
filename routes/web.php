@@ -23,4 +23,4 @@ Route::get('messages', [MessageController::class, 'index']);
 Route::post('messages', [MessageController::class, 'store']);
 
 Route::get('admin/books', [BookController::class, 'index']);
-Route::get('admin/books/{id}', [BookController::class, 'show']);
+Route::get('admin/books/{id}', [BookController::class, 'show'])->whereNumber('id');
