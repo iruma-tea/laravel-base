@@ -9,20 +9,19 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class BookController extends Controller
 {
     // indexアクション
-    public function index(): View
+    public function index(): Response
     {
         // 書籍一覧を取得
         $books = Book::with('category')->orderBy('category_id')->orderBy('title')->get();
 
         // 書籍一覧をレスポンスとして返す
-        return view('admin.book.index', [
-            'books' => $books,
-        ]);
+        return response()->view('admin.book.index', ['books' => $books])->header('Content-Type', 'text/html')->header('Content-Encoding', 'UTF-8');
     }
 
     // showアクション
