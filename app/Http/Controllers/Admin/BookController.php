@@ -7,6 +7,7 @@ use App\Http\Requests\BookPostRequest;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -43,7 +44,7 @@ class BookController extends Controller
     }
 
     // storeアクション
-    public function store(BookPostRequest $request): Book
+    public function store(BookPostRequest $request): RedirectResponse
     {
         // 書籍データ登録用のオブジェクトを生成する
         $book = new Book();
@@ -56,7 +57,7 @@ class BookController extends Controller
         // 保存
         $book->save();
 
-        // 保存した書籍情報をレスポンスとして返す。
-        return $book;
+        // book.indexにリダイレクトする
+        return redirect(route('book.index'));
     }
 }
