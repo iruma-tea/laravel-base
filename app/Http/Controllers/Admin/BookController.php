@@ -14,13 +14,15 @@ use Illuminate\View\View;
 class BookController extends Controller
 {
     // indexアクション
-    public function index(): Collection
+    public function index(): View
     {
         // 書籍一覧を取得
-        $books = Book::all();
+        $books = Book::with('category')->orderBy('category_id')->orderBy('title')->get();
 
         // 書籍一覧をレスポンスとして返す
-        return $books;
+        return view('admin.book.index', [
+            'books' => $books,
+        ]);
     }
 
     // showアクション
@@ -58,6 +60,6 @@ class BookController extends Controller
         $book->save();
 
         // book.indexにリダイレクトする
-        return redirect(route('book.index'));
+        return redirect(route('book.index'))->with('message', $book->title . 'を追加しました。');
     }
 }
