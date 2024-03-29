@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookPostRequest;
+use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class BookController extends Controller
@@ -34,11 +36,13 @@ class BookController extends Controller
     // createアクション
     public function create(): View
     {
+        // カテゴリ一覧
         $categories = Category::all();
 
-        return view('admin.book.create', [
-            'categories' => $categories,
-        ]);
+        // 著者一覧
+        $authors = Author::all();
+
+        return view('admin.book.create', compact('categories', 'authors'));
     }
 
     // storeアクション
@@ -52,8 +56,13 @@ class BookController extends Controller
         $book->title = $request->title;
         $book->price = $request->price;
 
-        // 保存
-        $book->save();
+        DB::transaction(function () use ($book, $request) {
+            // 保存
+            $book->save();
+
+            // 著者書籍テーブルを登録
+            $book->authors()->attach($request->author_ids);
+        });
 
         // book.indexにリダイレクトする
         return redirect(route('book.index'))->with('message', $book->title . 'を追加しました。');
