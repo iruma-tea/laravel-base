@@ -105,11 +105,8 @@ class BookController extends Controller
     // destroy
     public function destroy(Book $book): RedirectResponse
     {
-        DB::transaction(function () use ($book) {
-            // 削除
-            $book->authors()->detach();
-            $book->delete();
-        });
+        // 削除(カスケード機能による子テーブルの削除)
+        $book->delete();
         return redirect(route('book.index'))->with('message', $book->title . 'を削除しました。');
     }
 }
