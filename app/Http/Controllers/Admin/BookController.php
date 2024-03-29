@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookPostRequest;
+use App\Http\Requests\BookPutRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
@@ -81,5 +82,23 @@ class BookController extends Controller
         $authorIds = $book->authors()->pluck('id')->all();
 
         return view('admin.book.edit', compact('book', 'categories', 'authors', 'authorIds'));
+    }
+
+    // updateアクション
+    public function update(BookPutRequest $request, Book $book): RedirectResponse
+    {
+        $book->category_id = $request->category_id;
+        $book->title = $request->title;
+        $book->price = $request->price;
+
+        DB::transaction(function () use ($book, $request) {
+            // 更新
+            $book->update();
+
+            // 書籍と著者の関連付けを更新
+            $book->authors()->sync($request->author_ids);
+        });
+
+        return redirect(route('book.index'))->with('message', $book->title . 'を更新しました。');
     }
 }
