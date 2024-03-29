@@ -67,4 +67,19 @@ class BookController extends Controller
         // book.indexにリダイレクトする
         return redirect(route('book.index'))->with('message', $book->title . 'を追加しました。');
     }
+
+    // editアクション
+    public function edit(Book $book): View
+    {
+        // カテゴリ一覧の取得
+        $categories = Category::all();
+
+        // 著者一覧の取得
+        $authors = Author::all();
+
+        // 書籍に紐づく著者IDの取得
+        $authorIds = $book->authors()->pluck('id')->all();
+
+        return view('admin.book.edit', compact('book', 'categories', 'authors', 'authorIds'));
+    }
 }
