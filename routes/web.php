@@ -35,4 +35,5 @@ Route::prefix('admin/books')->name('book.')->controller(BookController::class)->
     Route::post('', 'store')->name('store');
     Route::get('{book}/edit', 'edit')->whereNumber('book')->name('edit');
     Route::put('{book}', 'update')->whereNumber('book')->name('update');
+    Route::delete('{book}', 'destroy')->whereNumber('book')->name('destroy');
 });
