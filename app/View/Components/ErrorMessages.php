@@ -18,6 +18,12 @@ class ErrorMessages extends Component
     {
     }
 
+    // 3件以上エラーがある場合に真を返すメソッド
+    public function has2MoreErrors(): bool
+    {
+        return count($this->errors) > 2;
+    }
+
     /**
      * Get the view / contents that represent the component.
      */
