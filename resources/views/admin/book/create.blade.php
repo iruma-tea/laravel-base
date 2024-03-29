@@ -5,7 +5,7 @@
 
     <h1>書籍登録</h1>
     @if ($errors->any())
-        <x-alert>
+        <x-alert class="danger">
             <x-error-messages :errors="$errors" />
         </x-alert>
     @endif
