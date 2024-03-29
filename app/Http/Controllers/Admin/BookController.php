@@ -25,11 +25,8 @@ class BookController extends Controller
     }
 
     // showアクション
-    public function show(string $id): View
+    public function show(Book $book): View
     {
-        // 書籍を1件取得
-        $book = Book::findOrFail($id);
-
         // 取得した書籍をレスポンスとして返す
         return view('admin.book.show', compact('book'));
     }

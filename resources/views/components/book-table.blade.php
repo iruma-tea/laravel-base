@@ -8,7 +8,7 @@
         <tr @if($loop->even) style="background-color:#E0E0E0" @endif>
             <td>{{$book->category->title}}</td>
             <td>
-                <a href="{{route('book.show', ['id'=>$book->id])}}">
+                <a href="{{route('book.show', $book)}}">
                     {{$book->title}}
                 </a>
             </td>
