@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             AuthorsTableSeeder::class,
             BooksTableSeeder::class,
             AuthorBookTableSeeder::class,
+            AdminsTableSeeder::class,
         ]);
     }
 }
