@@ -16,6 +16,9 @@
         <ul>
             @foreach ($messages as $message)
                 <li>{{$message->body}}</li>
+                {{-- 以下、脆弱性のあるコード(XSS) --}}
+                {{-- <li>{!! $message->body !!}</li> --}}
+                {{-- <a href="{{$message->body}}">{{$message->body}}</a> --}}
             @endforeach
         </ul>
     </main>
