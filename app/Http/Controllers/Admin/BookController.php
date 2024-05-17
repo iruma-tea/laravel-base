@@ -42,7 +42,7 @@ class BookController extends Controller
     public function create(): View
     {
         // BookPolicyのcreateメソッドによる認可
-        $this->authorize('create', Book::class);
+        // $this->authorize('create', Book::class);
 
         // カテゴリ一覧
         $categories = Category::all();
@@ -57,7 +57,7 @@ class BookController extends Controller
     public function store(BookPostRequest $request): RedirectResponse
     {
         // BookPolicyのcreateメソッドによる認可
-        $this->authorize('create', Book::class);
+        // $this->authorize('create', Book::class);
 
         // 書籍データ登録用のオブジェクトを生成する
         $book = new Book();
@@ -87,7 +87,7 @@ class BookController extends Controller
         // if (Auth::user()->cannot('update', $book)) {
         //     abort(403);
         // }
-        $this->authorize('update', $book);
+        // $this->authorize('update', $book);
 
         // カテゴリ一覧の取得
         $categories = Category::all();
@@ -105,7 +105,7 @@ class BookController extends Controller
     public function update(BookPutRequest $request, Book $book): RedirectResponse
     {
         // 作成者以外はアクセス不可
-        $this->authorize('update', $book);
+        // $this->authorize('update', $book);
 
         $book->category_id = $request->category_id;
         $book->title = $request->title;
@@ -126,7 +126,7 @@ class BookController extends Controller
     public function destroy(Book $book): RedirectResponse
     {
         // 作成者以外はアクセス不可
-        $this->authorize('update', $book);
+        // $this->authorize('update', $book);
         // 削除(カスケード機能による子テーブルの削除)
         $book->delete();
         return redirect(route('book.index'))->with('message', $book->title . 'を削除しました。');
