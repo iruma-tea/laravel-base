@@ -128,7 +128,7 @@ class BookController extends Controller
             $book->authors()->sync($request->author_ids);
         });
 
-        return redirect(route('book.index'))->with('message', $book->title . 'を更新しました。');
+        return redirect(route('book.index'))->with('message', $book->title . 'を変更しました。');
     }
 
     // destroy
