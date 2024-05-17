@@ -10,9 +10,13 @@
         <tr @if($loop->even) style="background-color:#E0E0E0" @endif>
             <td>{{$book->category->title}}</td>
             <td>
-                <a href="{{route('book.show', $book)}}">
-                    {{$book->title}}
-                </a>
+                @can('example-com-user')
+                    <a href="{{route('book.show', $book)}}">
+                        {{$book->title}}
+                    </a>
+                @else
+                    {{ $book->title }}
+                @endcan
             </td>
             <td>{{$book->price}}</td>
             <td>

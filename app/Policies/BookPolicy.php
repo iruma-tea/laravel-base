@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Admin;
 use App\Models\Book;
+use Illuminate\Support\Facades\Gate;
 
 class BookPolicy
 {
@@ -22,13 +23,12 @@ class BookPolicy
 
     public function view(Admin $admin, Book $book): bool
     {
-        return true;
+        return Gate::allows('example-com-user');
     }
 
     public function create(Admin $admin): bool
     {
-        return substr($admin->login_id, -11) === "example.com";
-        return true;
+        return Gate::allows('example-com-user');
     }
 
     public function update(Admin $admin, Book $book): bool

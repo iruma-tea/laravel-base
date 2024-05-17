@@ -2,10 +2,16 @@
 
 namespace App\Providers;
 
+use App\Models\Admin;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+    ];
+
     /**
      * Register any application services.
      */
@@ -19,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('example-com-user', function (Admin $admin) {
+            // IDがドメインがexample.comかどうか
+            return substr($admin->login_id, -11) === 'example.com';
+        });
     }
 }
