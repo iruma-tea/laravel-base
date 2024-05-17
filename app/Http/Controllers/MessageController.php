@@ -13,7 +13,7 @@ class MessageController extends Controller
     // indexアクション
     public function index(): View
     {
-        $messages = Message::all();
+        $messages = Message::orderBy('id')->get();
         // messagesとういうキーでビューに渡す
         return view('message/index', [
             'messages' => $messages

@@ -35,6 +35,7 @@ class MessageTest extends TestCase
         print_r(Message::all());
 
         // メッセージ一覧にHello World、Hello Laravelが表示される
-        $this->get('messages')->assertOk()->assertSee('Hello World')->assertSee('Hello Laravel');
+        // $this->get('messages')->assertOk()->assertSee('Hello World')->assertSee('Hello Laravel');
+        $this->get('messages')->assertOk()->assertSeeInOrder(['Hello World', 'Hello Laravel']); // 出力順の検証はassertSeeInOrderメソッドで検証
     }
 }
