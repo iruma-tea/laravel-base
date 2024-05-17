@@ -19,6 +19,12 @@ use Illuminate\View\View;
 
 class BookController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Book::class, 'book');
+    }
+
     // indexアクション
     public function index(): Response
     {
