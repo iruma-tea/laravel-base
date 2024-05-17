@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\Admin\AuthenticatedSessionController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Mime\MessageConverter;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,8 @@ require __DIR__ . '/auth.php';
 
 Route::get('messages', [MessageController::class, 'index']);
 Route::post('messages', [MessageController::class, 'store']);
+// Route::get('messages/{id}/delete', [MessageController::class, 'destroy']);
+Route::delete('messages/{id}/delete', [MessageController::class, 'destroy']);
 
 Route::prefix('admin')->group(function () {
     Route::name('admin.')->controller(AuthenticatedSessionController::class)->group(function () {
